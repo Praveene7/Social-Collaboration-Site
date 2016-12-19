@@ -1,5 +1,7 @@
 package com.niit.model;
 
+import java.util.UUID;
+
 import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
@@ -10,16 +12,16 @@ import org.springframework.stereotype.Component;
 public class Friend extends BaseDomain {
 
 	@Id
-	@GeneratedValue
-	private int id;
+	private String id;
 	private String userid;
 	private String friendid;
 	private String status;
-	private char is_online;
-	public int getId() {
+	private char isOnline;
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getUserid() {
@@ -40,12 +42,16 @@ public class Friend extends BaseDomain {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public char getIs_online() {
-		return is_online;
+	public char getIsOnline() {
+		return isOnline;
 	}
-	public void setIs_online(char is_online) {
-		this.is_online = is_online;
+	public void setIsOnline(char isOnline) {
+		this.isOnline = isOnline;
 	}
+	public Friend(){
+		this.id ="Friend"+ UUID.randomUUID().toString().substring(24).toUpperCase();
+	}
+	
 	
 	
 }

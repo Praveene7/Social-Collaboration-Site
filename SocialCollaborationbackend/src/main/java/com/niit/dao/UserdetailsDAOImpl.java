@@ -117,6 +117,7 @@ public Userdetails authenticate(String username, String password) {
 @Transactional
 public List<Userdetails> list()
 {
+	System.out.println("userlist");
 	String hql = "from Userdetails";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	return query.list();
@@ -131,7 +132,7 @@ public void setOnLine(String username)
 }
 
 @Transactional
-public void setOffLine(String userid)
+public void setOffLine(String username)
 {
 	String hql ="update Userdetails SET isonline='N' where username= "+" '" +username+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);

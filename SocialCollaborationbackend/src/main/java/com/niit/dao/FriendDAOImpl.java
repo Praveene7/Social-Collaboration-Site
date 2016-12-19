@@ -77,9 +77,10 @@ catch(Exception e)
 
 
 @Transactional
-public List<Friend> getmyfriends(String userid)
+public List<Friend> getmyfriends(String username)
 {
-	String hql = "from Friend where userid= "+" '" +userid+ "' and status='"+"A'";
+	System.out.println(username);
+	String hql = "from Friend where userid= "+" '" +username+ "' and status='"+"A'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
 	List<Friend> list = query.list();
@@ -87,9 +88,9 @@ public List<Friend> getmyfriends(String userid)
 }
 
 @Transactional
-public List<Friend> getNewFriendrequest(String userid)
+public List<Friend> getNewFriendrequest(String username)
 {
-	String hql = "from Friend where userid= "+" '" +userid+ "' and status='"+"N'";
+	String hql = "from Friend where userid= "+" '" +username+ "' and status='"+"N'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
 	List<Friend> list = query.list();
@@ -114,7 +115,7 @@ public Friend get(String userid,String friendid)
 @Transactional
 public void setOnLine(String userid)
 {
-	String hql ="update Friend SET is_online='Y' where userid= "+" '" +userid+ "'";
+	String hql ="update Friend SET isonline='Y' where userid= "+" '" +userid+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 }
@@ -122,7 +123,7 @@ public void setOnLine(String userid)
 @Transactional
 public void setOffLine(String userid)
 {
-	String hql ="update Friend SET is_online='N' where userid= "+" '" +userid+ "'";
+	String hql ="update Friend SET isonline='N' where userid= "+" '" +userid+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 	

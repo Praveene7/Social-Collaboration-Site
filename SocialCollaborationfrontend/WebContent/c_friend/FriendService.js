@@ -4,7 +4,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
 	
 	console.log("FriendService...")
 	
-	var BASE_URL='http://localhost:8081/CollaborationBackEnd'
+	var BASE_URL='http://localhost:8080/CollaborationBack'
     return {
          
 		getMyFriends: function() {
@@ -44,7 +44,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
             },
              
             deleteFriend: function(id){
-                    return $http.delete(BASE_URL+'/friend/'+id)
+                    return $http['delete'](BASE_URL+'/friend/'+id)
                             .then(
                                     function(response){
                                         return response.data;

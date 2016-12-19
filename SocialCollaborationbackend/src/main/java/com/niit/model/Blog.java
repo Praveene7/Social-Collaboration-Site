@@ -12,10 +12,10 @@ public class Blog extends BaseDomain{
 	private String id;
 	private String title;
 	private String description;
-	
 	private String userid;
 	private char status;
 	private String reason;
+	
 	public String getId() {
 		return id;
 	}
@@ -52,8 +52,6 @@ public class Blog extends BaseDomain{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	
-	
-	
+		
 
 }

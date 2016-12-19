@@ -8,8 +8,8 @@ app.controller('FriendController', ['UserService','$scope', 'FriendService','$lo
           self.friends=[];
           
           self.user = {
-  				id : '',
-  				name : '',
+        		userid : '',
+				username : '',
   				password : '',
   				mobile : '',
   				address : '',

@@ -10,28 +10,28 @@ import org.springframework.stereotype.Component;
 public class BaseDomain {
 	
 	@Transient
-	private String errorcode;
+	private String errorCode;
 	
 	@Transient
-	private String errormessage;
+	private String errorMessage;
 
-	public String getErrorcode() {
-		return errorcode;
+	public String getErrorCode() {
+		return errorCode;
 	}
 
-	public void setErrorcode(String errorcode) {
-		this.errorcode = errorcode;
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 
-	public String getErrormessage() {
-		return errormessage;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setErrormessage(String errormessage) {
-		this.errormessage = errormessage;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
-	
-	
+
+
 	
 
 }

@@ -34,7 +34,9 @@ public class UserController {
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public ResponseEntity<List<Userdetails>> listAllUsers(){
 		log.debug("-->Calling method listAllUsers");
+		System.out.println("Calling method listAllUsers");
 		List<Userdetails> user=userdetailsDAO.list();
+		System.out.println("Out of userlist");
 		if(user.isEmpty()){
 			return new ResponseEntity<List<Userdetails>>(HttpStatus.NO_CONTENT);
 		}
@@ -63,8 +65,8 @@ public class UserController {
 	{
 		log.debug("-->User does not exist");
 		userdetails = new Userdetails();
-		userdetails.setErrorcode("404");
-		userdetails.setErrormessage("User not found");
+		userdetails.setErrorCode("404");
+		userdetails.setErrorMessage("User not found");
 		return new ResponseEntity<Userdetails>(userdetails,HttpStatus.NOT_FOUND);
 	}
 	log.debug("-->User exist");
@@ -80,8 +82,8 @@ public class UserController {
 	{
 		log.debug("-->User does not exist");
 		userdetails = new Userdetails();
-		userdetails.setErrorcode("404");
-		userdetails.setErrormessage("User not found");
+		userdetails.setErrorCode("404");
+		userdetails.setErrorMessage("User not found");
 		return new ResponseEntity<Userdetails>(userdetails,HttpStatus.NOT_FOUND);
 	}
 	userdetailsDAO.update(userdetails);
@@ -99,8 +101,8 @@ public class UserController {
 		{
 			log.debug("-->User does not exist");
 			userdetails = new Userdetails();
-			userdetails.setErrorcode("404");
-			userdetails.setErrormessage("Blog not found");
+			userdetails.setErrorCode("404");
+			userdetails.setErrorMessage("Blog not found");
 			return new ResponseEntity<Userdetails>(userdetails,HttpStatus.NOT_FOUND);
 		}
 		userdetailsDAO.delete(id);
@@ -114,17 +116,22 @@ public class UserController {
 	public ResponseEntity<Userdetails> authenticateuser(@RequestBody Userdetails userdetails,HttpSession session)
 	{
 		log.debug("-->calling authenticate method");
+	System.out.println("calling authenticate method");
 		userdetails=userdetailsDAO.authenticate(userdetails.getUsername(), userdetails.getPassword());
 		if(userdetails==null)
 		{
 			log.debug("-->User does not exist");
+			System.out.println("User does not exist");
 			userdetails = new Userdetails();
+			userdetails.setErrorCode("404");
+			userdetails.setErrorMessage("Invalid Credentials, Please enter vaild credentials");
 	}
 		else
 		{
-			userdetails.setErrorcode("200");
+			userdetails.setErrorCode("200");
 			log.debug("-->User exist with above credentials");
-			session.setAttribute("loggegInUser",userdetails);
+			System.out.println("User exist with above credentials");
+			session.setAttribute("loggedInUser",userdetails);
 			session.setAttribute("loggedInUserId", userdetails.getUsername());
 			friendDAO.setOnLine(userdetails.getUsername());
 			userdetailsDAO.setOnLine(userdetails.getUsername());

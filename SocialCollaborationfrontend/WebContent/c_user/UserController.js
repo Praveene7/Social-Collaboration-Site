@@ -1,16 +1,7 @@
 'use strict';
 
-app
-		.controller(
-				'UserController',
-				[
-						'$scope',
-						'UserService',
-						'$location',
-						'$rootScope',
-						
-						'$http',
-						function($scope, UserService, $location, $rootScope								,$http) {
+app.controller('UserController',['$scope','UserService','$location','$cookieStore','$rootScope','$http',
+						function($scope, UserService, $location, $cookieStore, $rootScope, $http) {
 							console.log("UserController...")
 							var self = this;
 							self.user = {
@@ -53,6 +44,7 @@ app
 													console
 															.error('Error while creating User.');
 												});
+								$location.path("/login")
 							};
 							
 							self.myProfile = function() {
@@ -84,35 +76,30 @@ app
 
 							self.authenticate = function(user) {
 								console.log("authenticate...")
-								UserService
-										.authenticate(user)
+								UserService.authenticate(user)
 										.then(
 
 												function(d) {
 
 													self.user = d;
-													console
-															.log("user.errorCode: "
-																	+ self.user.errorCode)
+													console.log("user.errorCode: "+ self.user.errorCode)
 													if (self.user.errorCode == "404")
 
 													{
 														alert(self.user.errorMessage)
 
-														self.user.id = "";
+														self.user.username = "";
 														self.user.password = "";
 
 													} else {
-														console
-																.log("Valid credentials. Navigating to home page")
-																alert('login successful')
-														/*$rootScope.currentUser = self.user
+														console.log("Valid credentials. Navigating to home page")
+															$rootScope.currentUser = self.user
+															
 														$http.defaults.headers.common['Authorization'] = 'Basic '
 																+ $rootScope.currentUser;
 														$cookieStore
-																.put(
-																		'currentUser',
-																		$rootScope.currentUser);*/
+																.put('currentUser',
+																		$rootScope.currentUser);
 														$location.path('/');
 
 													}

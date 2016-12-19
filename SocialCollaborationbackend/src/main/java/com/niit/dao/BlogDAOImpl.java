@@ -101,6 +101,7 @@ public Blog get(String id)
 @Transactional
 public List<Blog> list()
 {
+	System.out.println("blogs list");
 	String hql = "from Blog";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	return query.list();

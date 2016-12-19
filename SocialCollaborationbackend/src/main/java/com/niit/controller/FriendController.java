@@ -29,16 +29,18 @@ public class FriendController {
 	
 	
 	private static final Logger log=LoggerFactory.getLogger(Friend.class);
-	@RequestMapping(value="/myfriends", method=RequestMethod.GET)
+	@RequestMapping(value="/myFriends", method=RequestMethod.GET)
 	public ResponseEntity<List<Friend>> listAllFriend(HttpSession session){
 		log.debug("-->Calling method listAllFriends");
+		
 		Userdetails loggedInUser = (Userdetails) session.getAttribute("loggedInUser");
-		List<Friend> myfriends = friendDAO.getmyfriends(loggedInUser.getUserid());
+		System.out.println("Calling method listAllFriends"+loggedInUser.getUsername());
+		List<Friend> myfriends = friendDAO.getmyfriends(loggedInUser.getUsername());
 		return new ResponseEntity<List<Friend>> (myfriends,HttpStatus.OK);
 		
 	}
 		
-	@RequestMapping(value="/addfriend/{friendid}", method=RequestMethod.GET)
+	@RequestMapping(value="/addFriend/{friendid}", method=RequestMethod.GET)
 	public ResponseEntity<Friend> sendFriendRequest(@PathVariable("friendid")String friendid,HttpSession session)
 	{
 		log.debug("-->Calling method send friend request");

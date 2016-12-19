@@ -19,71 +19,66 @@ import com.niit.dao.BlogDAO;
 
 import com.niit.model.Blog;
 
-
-
-
 @RestController
 public class BlogController {
-private static final Logger log=LoggerFactory.getLogger(UserController.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
-	BlogDAO blogdao;
+	BlogDAO blogDAO;
 	@Autowired
 	Blog blog;
-	
-	@RequestMapping(value="/blogs", method=RequestMethod.GET)
-	public ResponseEntity<List<Blog>> listAllBlog(){
-		log.debug("-->Calling method listAllUsers");
-		List<Blog> blog=blogdao.list();
-		if(blog.isEmpty()){
+
+	@RequestMapping(value = "/blogs", method = RequestMethod.GET)
+	public ResponseEntity<List<Blog>> listAllBlogs() {
+		log.debug("-->Calling method listAllBlogs");
+		System.out.println("-->Calling method listAllBlogs");
+		List<Blog> blog = blogDAO.list();
+		
+		if (blog.isEmpty()) {
 			return new ResponseEntity<List<Blog>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Blog>>(blog,HttpStatus.OK);
-		
+		return new ResponseEntity<List<Blog>>(blog, HttpStatus.OK);
+
 	}
-	@RequestMapping(value="/blog/{id}",method=RequestMethod.GET)
-	public ResponseEntity<Blog> getuser(@PathVariable("id")String id)
-	{
-	log.debug("-->calling get method");
-Blog blog=blogdao.get(id);
-	if(blog==null)
-	{
-		blog = new Blog();
-		blog.setErrorcode("404");
-		blog.setErrormessage("Blog not found");
-		return new ResponseEntity<Blog>(blog,HttpStatus.NOT_FOUND);
+
+	@RequestMapping(value = "/blog/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Blog> getuser(@PathVariable("id") String id) {
+		log.debug("-->calling get method");
+		Blog blog = blogDAO.get(id);
+		if (blog == null) {
+			blog = new Blog();
+			blog.setErrorCode("404");
+			blog.setErrorMessage("Blog not found");
+			return new ResponseEntity<Blog>(blog, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
-	
-	return new ResponseEntity<Blog>(blog,HttpStatus.OK);
-	}
-	
-	
-	@RequestMapping(value="/createblogs/", method=RequestMethod.POST)
-	public ResponseEntity<Blog> createblogs(@RequestBody Blog blog,HttpSession session){
+
+	@RequestMapping(value = "/createblogs/", method = RequestMethod.POST)
+	public ResponseEntity<Blog> createblogs(@RequestBody Blog blog, HttpSession session) {
 		log.debug("-->Calling method createUsers");
 		String loggedInUserid = (String) session.getAttribute("loggedInUserId");
 		blog.setUserid(loggedInUserid);
 		blog.setStatus('N');
-			blogdao.save(blog);
-			return new ResponseEntity<Blog>(blog,HttpStatus.OK);
-		}
-	
-	@RequestMapping(value="/blog/{id}",method=RequestMethod.DELETE)
-	public ResponseEntity<Blog> deleteuser(@PathVariable("id")String id)
-	{
+		blogDAO.save(blog);
+		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Blog> deleteblog(@PathVariable("id") String id) {
 		log.debug("-->calling delete method");
-		Blog blog=blogdao.get(id);
-		if(blog==null)
-		{
-			log.debug("-->User does not exist");
+		Blog blog = blogDAO.get(id);
+		if (blog == null) {
+			log.debug("-->blog does not exist");
 			blog = new Blog();
-			blog.setErrorcode("404");
-			blog.setErrormessage("Blog not found");
-			return new ResponseEntity<Blog>(blog,HttpStatus.NOT_FOUND);
+			blog.setErrorCode("404");
+			blog.setErrorMessage("Blog not found");
+			return new ResponseEntity<Blog>(blog, HttpStatus.NOT_FOUND);
 		}
-		blogdao.delete(id);
+		blogDAO.delete(id);
 		log.debug("-->User deleted successfully");
-		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
-		}
-	
+		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
+	}
+
 }
