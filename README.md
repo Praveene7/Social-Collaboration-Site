@@ -2,7 +2,7 @@ Project Title: Social collaboration web site
 
 Project Description: 
 
-chatup.comis an online social collaboration web site to enable niit alumni to interact with existing students to share their experience and knowledge. 
+chatbox.com is an online social collaboration web site to enable niit alumni to interact with existing students to share their experience and knowledge. 
 
 Technologies and tools:
 
