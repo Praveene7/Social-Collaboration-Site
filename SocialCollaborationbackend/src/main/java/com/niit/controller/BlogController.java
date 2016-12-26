@@ -42,7 +42,7 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Blog> getuser(@PathVariable("id") String id) {
+	public ResponseEntity<Blog> getuser(@PathVariable("id") int id) {
 		log.debug("-->calling get method");
 		Blog blog = blogDAO.get(id);
 		if (blog == null) {
@@ -66,7 +66,7 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Blog> deleteblog(@PathVariable("id") String id) {
+	public ResponseEntity<Blog> deleteblog(@PathVariable("id") int id) {
 		log.debug("-->calling delete method");
 		Blog blog = blogDAO.get(id);
 		if (blog == null) {

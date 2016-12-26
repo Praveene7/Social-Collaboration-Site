@@ -97,9 +97,11 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 															
 														$http.defaults.headers.common['Authorization'] = 'Basic '
 																+ $rootScope.currentUser;
+														 $rootScope.currentUserSignedIn = true;
 														$cookieStore
-																.put('currentUser',
-																		$rootScope.currentUser);
+																.put('currentUser',	$rootScope.currentUser);
+														
+														
 														$location.path('/');
 
 													}
@@ -114,9 +116,10 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 
 							self.logout = function() {
 								console.log("logout")
+								UserService.logout()
 								$rootScope.currentUser = {};
 								$cookieStore.remove('currentUser');
-								UserService.logout()
+								
 								$location.path('/');
 
 							}

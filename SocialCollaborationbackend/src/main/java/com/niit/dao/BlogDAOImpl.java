@@ -24,12 +24,20 @@ public class BlogDAOImpl implements BlogDAO {
 	this.sessionFactory = sessionFactory;
 	}
 	
+	private Integer getMaxId()
+	{
+		String hql= "select max(id) from Blog";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);
+		Integer maxId = (Integer) query.uniqueResult();
+		return maxId;	
+	}
+	
 @Transactional
 	public boolean save(Blog blog)
 	{
 	try {
 		// Session session = sessionFactory.getCurrentSession();
-	
+		blog.setId(getMaxId()+1);
 		sessionFactory.getCurrentSession().save(blog);
 		return true;
 	}
@@ -59,7 +67,7 @@ catch(Exception e)
 
 
 @Transactional
-	public boolean delete(String id)
+	public boolean delete(int id)
 	{
 	try {
 		
@@ -79,7 +87,7 @@ catch(Exception e)
 	}
 
 @Transactional
-public Blog get(String id)
+public Blog get(int id)
 {
 	String hql = "from Blog where id= "+" '" +id+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);

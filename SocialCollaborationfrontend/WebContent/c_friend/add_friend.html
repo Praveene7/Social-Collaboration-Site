@@ -22,11 +22,12 @@
 		<fieldset>
 			<legend></legend>
 
-			<p>Name: {{friend.friendid}} &nbsp; &nbsp;&nbsp; Status: {{friend.status}}
-			<a href="#/chat">Send Message</a>
-			
-
-			
+			<p>Name: {{friend.userid}} &nbsp; &nbsp;&nbsp; Status: {{friend.status}}
+			<button type="button"  ng-click="ctrl.acceptFriendRequest(friend.id)" 
+			       class="btn btn-warning btn-sm">Accept</button>
+			       <button type="button"  ng-click="ctrl.rejectFriendRequest(friend.id)" 
+			       class="btn btn-warning btn-sm">Reject</button>
+						
 		</fieldset>
 	</div>
 

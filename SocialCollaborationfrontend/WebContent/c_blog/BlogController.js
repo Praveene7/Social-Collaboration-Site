@@ -11,6 +11,7 @@ app.controller('BlogController',['$scope','BlogService','$location','$rootScope'
 								description: '',
 								status : '',
 								reason : '',
+								posted_dt : '',
 								errorCode : '',
 								errorMessage : ''
 							};

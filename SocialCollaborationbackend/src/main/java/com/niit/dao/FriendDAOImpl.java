@@ -36,7 +36,7 @@ public class FriendDAOImpl implements FriendDAO {
 	{
 	try {
 		// Session session = sessionFactory.getCurrentSession();
-	//friend.setId(getMaxId()+1);
+		//friend.setId(getMaxId()+1);
 		sessionFactory.getCurrentSession().save(friend);
 		return true;
 	}
@@ -49,11 +49,11 @@ public class FriendDAOImpl implements FriendDAO {
 
 
 @Transactional
-public boolean update(Friend friend)
+public boolean saveOrUpdate(Friend friend)
 {
 try {
 
-	sessionFactory.getCurrentSession().update(friend);
+	sessionFactory.getCurrentSession().saveOrUpdate(friend);
 	return true;
 }
 catch(Exception e)
@@ -79,7 +79,7 @@ catch(Exception e)
 @Transactional
 public List<Friend> getmyfriends(String username)
 {
-	System.out.println(username);
+	System.out.println("getmyfriends"+username);
 	String hql = "from Friend where userid= "+" '" +username+ "' and status='"+"A'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
@@ -90,7 +90,8 @@ public List<Friend> getmyfriends(String username)
 @Transactional
 public List<Friend> getNewFriendrequest(String username)
 {
-	String hql = "from Friend where userid= "+" '" +username+ "' and status='"+"N'";
+	System.out.println("getfriend request daoimpl"+username);
+	String hql = "from Friend where friendid= "+" '" +username+ "' and status='"+"N'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
 	List<Friend> list = query.list();
@@ -98,9 +99,9 @@ public List<Friend> getNewFriendrequest(String username)
 }
 
 @Transactional
-public Friend get(String userid,String friendid)
+public Friend get(String username,String friendid)
 {
-	String hql = "from Friend where userid= '" + userid + "' and " + " friendid ='" + friendid + "'";
+	String hql = "from Friend where userid= '" + username + "' and " + " friendid ='" + friendid + "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")
 	List<Friend> list = (List<Friend>) query.list();
@@ -113,17 +114,25 @@ public Friend get(String userid,String friendid)
 }
 
 @Transactional
-public void setOnLine(String userid)
+public void setStatusAccept(String id)
 {
-	String hql ="update Friend SET isonline='Y' where userid= "+" '" +userid+ "'";
+	String hql ="update Friend SET status='R' where id= "+" '" +id+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 }
 
 @Transactional
-public void setOffLine(String userid)
+public void setOnLine(String username)
 {
-	String hql ="update Friend SET isonline='N' where userid= "+" '" +userid+ "'";
+	String hql ="update Friend SET isonline='Y' where userid= "+" '" +username+ "'";
+	Query query =sessionFactory.getCurrentSession().createQuery(hql);
+	query.executeUpdate();
+}
+
+@Transactional
+public void setOffLine(String username)
+{
+	String hql ="update Friend SET isonline='N' where userid= "+" '" +username+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 	

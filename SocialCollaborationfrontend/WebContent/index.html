@@ -56,8 +56,13 @@ color: #000;  /*Sets the text hover color on navbar*/
   .navbar-brand{
   font-color: Red;
   }
+  body {
+    background-color: #900C3F;
+    color:#FFFFFF;
+}
   </style>
  </head>
+ 
  <body>
  <div class="container-fluid" style="background-color:#292c2f;color:#fff;height:200px;">
   <h1>Collaboration Site</h1>
@@ -73,7 +78,7 @@ color: #000;  /*Sets the text hover color on navbar*/
      </div>
      <ul class="nav navbar-nav">
      <li class="active"><a href="#/">Home</a></li>
-     <li><a href="#/job_opportunities">Jobs</a></li>
+     <!-- <li><a href="#/job_opportunities">Jobs</a></li> -->
          <li class="dropdown">
          <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Blogs <span class="caret"></span></a>
          <ul class="dropdown-menu">
@@ -83,13 +88,7 @@ color: #000;  /*Sets the text hover color on navbar*/
         </ul>
         </li>
          <li><a href="#/event"> Events </a></li>
-         <!-- <li class="dropdown">
-       <a class="dropdown-toggle" data-toggle="dropdown"  href="#">Chat<span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <li><a href="#/chat">Do Chat</a></li>
-      
-      </ul>
-    </li> -->
+         
          <li><a href="#/about"> About </a></li>
          <li><div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Friend
@@ -97,9 +96,8 @@ color: #000;  /*Sets the text hover color on navbar*/
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/search_friend">Search Friend</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/view_friend">View Friend</a></li>
-      <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li> -->
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/add_friend">Add Friend</a></li>
+      
     </ul>
   </div></li>
   <li><div class="dropdown">
@@ -116,13 +114,12 @@ color: #000;  /*Sets the text hover color on navbar*/
   </div></li>
          </ul>
          <ul class="nav navbar-nav navbar-right">
-         <!-- <div ng-show="currentUser==''"> -->
-         <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-          <!-- <div> -->
-         <!--  <div ng-hide="currentUser==''"> -->
-          <li><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-           <!-- <div>  -->      
+                  <li ng-show="currentUser==''"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li ng-show="currentUser==''"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         
+         
+          <li ng-hide="currentUserSignedIn" ng-controller="UserController as ctrl"><button type="button" ng-click="ctrl.logout()" class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span> Logout</button></li>
+        
          </ul>
      </div>
      </nav>
@@ -133,9 +130,9 @@ color: #000;  /*Sets the text hover color on navbar*/
      	
      </div>
      </div> -->
-     <div class="container-fluid" style="height:1000px">
+     <!-- <div class="container-fluid" style="height:1000px"> -->
      <div ng-view></div>
-     </div>
+     <!-- </div> -->
      
      <footer class="footer-distributed">
 

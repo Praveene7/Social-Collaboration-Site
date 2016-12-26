@@ -66,6 +66,10 @@ app.config(function($routeProvider){
 		templateUrl : 'c_friend/search_friend.html' ,
 		controller : 'FriendController'
 	})
+	.when('/about', {
+		templateUrl : 'about.html' ,
+		
+	})
 	
 	
 	.otherwise({redirectTo: '/'});
@@ -77,7 +81,7 @@ app.run(function ($rootScope, $location, $cookieStore, $http){
 	console.log("$locationChangeStart")
 	//redirect to login page if not logged in and typing to access a restricted page
 
-	var restrictedPage=$.inArray($location.path(), ['/','/login','/register']) ===-1;
+	var restrictedPage=$.inArray($location.path(), ['/','/login','/register','/view_blog','/list_blog','/about']) ===-1;
 	console.log("restrictedPage:" +restrictedPage)
 	var loggedIn=$rootScope.currentUser.username;
 	console.log("loggedIn:"+loggedIn)

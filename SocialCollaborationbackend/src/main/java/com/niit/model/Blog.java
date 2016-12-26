@@ -1,5 +1,8 @@
 package com.niit.model;
 
+import java.sql.Date;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
@@ -9,17 +12,28 @@ import org.springframework.stereotype.Component;
 @Table(name="Blog")
 public class Blog extends BaseDomain{
 	@Id
-	private String id;
+	private int id;
 	private String title;
 	private String description;
 	private String userid;
 	private char status;
 	private String reason;
+	private Date posted_dt;
 	
-	public String getId() {
+	public Date getPosted_dt() {
+		return posted_dt;
+	}
+	public void setPosted_dt(Date posted_dt) {
+		if(posted_dt==null)
+		{
+			posted_dt= new Date(System.currentTimeMillis());
+		}
+		this.posted_dt = posted_dt;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -52,6 +66,7 @@ public class Blog extends BaseDomain{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	
 		
 
 }

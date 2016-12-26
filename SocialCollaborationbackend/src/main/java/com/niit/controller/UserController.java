@@ -74,11 +74,11 @@ public class UserController {
 	}
 	
 	//update user by user id
-	@RequestMapping(value="/user/{userid}",method=RequestMethod.PUT)
-	public ResponseEntity<Userdetails> updateuser(@PathVariable("userid")String id)
+	@RequestMapping(value="/user/{username}",method=RequestMethod.PUT)
+	public ResponseEntity<Userdetails> updateuser(@PathVariable("username")String username)
 	{
 	log.debug("-->calling update method");
-	if(userdetailsDAO.get(id)==null)
+	if(userdetailsDAO.get(username)==null)
 	{
 		log.debug("-->User does not exist");
 		userdetails = new Userdetails();
@@ -139,12 +139,14 @@ public class UserController {
 		return new ResponseEntity<Userdetails>(userdetails,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/user/logout/",method=RequestMethod.POST)
+	@RequestMapping(value="/user/logout",method=RequestMethod.GET)
 	public ResponseEntity<Userdetails> logout(HttpSession session)
 	{
-		userdetails= userdetailsDAO.authenticate(userdetails.getUserid(), userdetails.getPassword());
-		friendDAO.setOffLine(userdetails.getUserid());
-		userdetailsDAO.setOffLine(userdetails.getUserid());
+		System.out.println("logout method");
+		Userdetails loggedInUser = (Userdetails) session.getAttribute("loggedInUser");
+		userdetails= userdetailsDAO.authenticate(loggedInUser.getUsername(), loggedInUser.getPassword());
+		friendDAO.setOffLine(userdetails.getUsername());
+		userdetailsDAO.setOffLine(userdetails.getUsername());
 		session.invalidate();
 		return new ResponseEntity<Userdetails>(userdetails,HttpStatus.OK);
 	}
