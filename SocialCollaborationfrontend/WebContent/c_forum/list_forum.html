@@ -1,0 +1,8 @@
+<div class="cantainer" ng-controller="ForumController as ctrl">
+
+welcome to forum page
+<div ng-repeat="forum in ctrl.forums">
+<a href="#" ng-click="ctrl.getSelectedForum(forum.id)">title {{forum.title}} -written by: {{forum.userid}}</a>
+</div>
+
+</div>

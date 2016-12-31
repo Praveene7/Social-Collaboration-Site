@@ -114,7 +114,7 @@ public Friend get(String username,String friendid)
 }
 
 @Transactional
-public void setStatusAccept(String id)
+public void setStatusReject(String id)
 {
 	String hql ="update Friend SET status='R' where id= "+" '" +id+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
@@ -122,9 +122,17 @@ public void setStatusAccept(String id)
 }
 
 @Transactional
+public void setStatusAccept(String id)
+{
+	String hql ="update Friend SET status='A' where id= "+" '" +id+ "'";
+	Query query =sessionFactory.getCurrentSession().createQuery(hql);
+	query.executeUpdate();
+}
+
+@Transactional
 public void setOnLine(String username)
 {
-	String hql ="update Friend SET isonline='Y' where userid= "+" '" +username+ "'";
+	String hql ="update Friend SET isonline='Y' where friendid= "+" '" +username+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 }
@@ -132,7 +140,7 @@ public void setOnLine(String username)
 @Transactional
 public void setOffLine(String username)
 {
-	String hql ="update Friend SET isonline='N' where userid= "+" '" +username+ "'";
+	String hql ="update Friend SET isonline='N' where friendid= "+" '" +username+ "'";
 	Query query =sessionFactory.getCurrentSession().createQuery(hql);
 	query.executeUpdate();
 	

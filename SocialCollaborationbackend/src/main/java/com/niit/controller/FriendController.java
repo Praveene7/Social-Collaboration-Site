@@ -82,12 +82,13 @@ public class FriendController {
 	@RequestMapping(value="/rejectFriend/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Friend> rejectFriend(@PathVariable("id")String id,HttpSession session)
 	{
-		log.debug("-->Calling method send friend request");
+		/*log.debug("-->Calling method send friend request");
 		Userdetails loggedInUser = (Userdetails) session.getAttribute("loggedInUser");	
 		friend.setUserid(loggedInUser.getUsername());
 		//friend.setFriendid(friendid);
 		friend.setStatus("R");
-		friendDAO.saveOrUpdate(friend);
+		friendDAO.saveOrUpdate(friend);*/
+		friendDAO.setStatusReject(id);
 		return new ResponseEntity<Friend>(friend,HttpStatus.OK);
 	}
 	
